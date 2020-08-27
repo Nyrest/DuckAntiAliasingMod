@@ -1,4 +1,8 @@
 ﻿using DuckGame;
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace DuckAntiAliasingMod
 {
@@ -11,9 +15,41 @@ namespace DuckAntiAliasingMod
         protected override void OnPostInitialize()
         {
             base.OnPostInitialize();
-            Graphics.device.MultiSampleMask = 2;
-            Graphics._manager.PreferMultiSampling = true;
-            Graphics._manager.ApplyChanges();
+            (typeof(Game).GetField("updateableComponents", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(MonoMain.instance) as List<IUpdateable>).Add(new updateObject(x =>
+            {
+                Graphics.device.MultiSampleMask = 2;
+                Graphics._manager.PreferMultiSampling = true;
+                Graphics._manager.ApplyChanges();
+            }));
+        }
+    }
+
+    public class updateObject : IUpdateable
+    {
+        public bool Enabled => true;
+
+        public int UpdateOrder => 1;
+
+        public Action<updateObject> action;
+
+#pragma warning disable CS0067 // Unreachable code detected
+        public event EventHandler<EventArgs> EnabledChanged;
+        public event EventHandler<EventArgs> UpdateOrderChanged;
+#pragma warning restore CS0067 // Unreachable code detected
+
+        public updateObject() { }
+
+        public updateObject(Action<updateObject> action) { this.action = action; }
+
+        public void Update(GameTime gameTime)
+        {
+            action.Invoke(this);
+            RemoveThis();
+        }
+
+        public void RemoveThis()
+        {
+            (typeof(Game).GetField("updateableComponents", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic).GetValue(MonoMain.instance) as List<IUpdateable>).Remove(this);
         }
     }
 }
