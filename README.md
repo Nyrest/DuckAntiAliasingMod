@@ -7,7 +7,7 @@ Build
 -------
 Windows:
 - Install Visual Studio with the following components:
-  - Workload ".NET Desktop Development". This includes by default .NET Framework 4.8 SDK and the .NET Framework 4.7.2 targeting pack.
+  - Workload ".NET Desktop Development". This includes by default .NET Framework 4.0 SDK.
 - Clone DuckAntiAliasingMod repository using git.
 - Open DuckAntiAliasingMod.sln in Visual Studio.
 - Add your DuckGame.exe to project references.
