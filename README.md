@@ -1,5 +1,6 @@
-# Anti Aliasing Mod
+# Anti Aliasing Mod ![GitHub](https://img.shields.io/github/license/BThree496/DuckAntiAliasingMod?style=flat-square) ![Steam Downloads](https://img.shields.io/steam/downloads/2209935223?style=flat-square) ![Steam Favorites](https://img.shields.io/steam/favorites/2209935223?color=blue&style=flat-square)
 Simply enable Anti Aliasing For Duck Game
+
 
 Download: [latest release](https://github.com/BThree496/DuckAntiAliasingMod/releases)
 
